@@ -1,0 +1,393 @@
+/* ==========================================================================
+   Todo List Life Dashboard — base layout and visual hierarchy
+   Vanilla CSS only. No imports, no preprocessors, no build step.
+   ========================================================================== */
+
+/* Design tokens
+   ------------------------------------------------------------------------- */
+:root {
+  /* Colors */
+  --color-bg: #f4f6fb;
+  --color-surface: #ffffff;
+  --color-border: #e2e6ef;
+  --color-text: #1f2430;
+  --color-text-muted: #6b7280;
+  --color-heading: #111827;
+
+  --color-accent: #4f46e5;
+  --color-accent-hover: #4338ca;
+  --color-accent-contrast: #ffffff;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-contrast: #ffffff;
+
+  --color-notify-info-bg: #eef2ff;
+  --color-notify-info-text: #3730a3;
+  --color-notify-error-bg: #fef2f2;
+  --color-notify-error-text: #991b1b;
+  --color-notify-error-border: #fecaca;
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* Radius and elevation */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card: 0 1px 2px rgba(17, 24, 39, 0.04), 0 4px 12px rgba(17, 24, 39, 0.06);
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Menlo,
+    Consolas, "Liberation Mono", monospace;
+
+  /* Layout */
+  --container-max: 1100px;
+}
+
+/* Reset / base
+   ------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: var(--space-lg) var(--space-md) var(--space-xl);
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2 {
+  color: var(--color-heading);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Accessibility utility: screen-reader-only labels
+   ------------------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Header / Greeting_Module
+   ------------------------------------------------------------------------- */
+#greeting {
+  max-width: var(--container-max);
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+.greeting-date {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.greeting-clock {
+  margin: var(--space-xs) 0;
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.greeting-message {
+  margin: var(--space-sm) 0 0;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Main layout — responsive card grid
+   ------------------------------------------------------------------------- */
+main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: 1fr;
+}
+
+/* Section cards */
+main section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-lg);
+}
+
+main section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Shared form controls — inputs and buttons
+   ------------------------------------------------------------------------- */
+input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+input[type="text"]::placeholder {
+  color: var(--color-text-muted);
+}
+
+input[type="text"]:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button {
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.55rem 1rem;
+  color: var(--color-accent-contrast);
+  background-color: var(--color-accent);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease;
+}
+
+button:hover {
+  background-color: var(--color-accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Focus_Timer
+   ------------------------------------------------------------------------- */
+.timer-display {
+  margin: var(--space-sm) 0 var(--space-lg);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.timer-controls button {
+  min-width: 5rem;
+}
+
+/* Stop uses a neutral/secondary look to contrast with Start */
+#timer-stop {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border-color: var(--color-border);
+}
+
+#timer-stop:hover {
+  background-color: var(--color-border);
+}
+
+.timer-end {
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-sm) var(--space-md);
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-notify-error-text);
+  background-color: var(--color-notify-error-bg);
+  border: 1px solid var(--color-notify-error-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Forms for Todo and Quick Links
+   ------------------------------------------------------------------------- */
+.todo-form,
+.links-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.links-form button[type="submit"],
+.todo-form button[type="submit"] {
+  flex: 0 0 auto;
+}
+
+/* Lists — tasks and links
+   ------------------------------------------------------------------------- */
+.todo-list,
+.links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.todo-list li,
+.links-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.6rem 0.75rem;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Task text takes the available space, action buttons sit at the end */
+.todo-list li .todo-text,
+.links-list li .link-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Completed task distinction (Requirements 5.1, 5.2).
+   Style applies only when the done/completed class is present, so removing
+   the class removes the distinction. */
+.todo-list li.done .todo-text,
+.todo-list li.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+/* Compact action buttons inside list rows */
+.todo-list li button,
+.links-list li button {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+/* Delete action uses the danger color */
+.todo-list li button.delete,
+.links-list li button.delete,
+.todo-list li .todo-delete,
+.links-list li .link-delete {
+  color: var(--color-danger-contrast);
+  background-color: var(--color-danger);
+}
+
+.todo-list li button.delete:hover,
+.links-list li button.delete:hover,
+.todo-list li .todo-delete:hover,
+.links-list li .link-delete:hover {
+  background-color: var(--color-danger-hover);
+}
+
+/* Empty-state indicators — muted, understated
+   ------------------------------------------------------------------------- */
+.empty-state {
+  margin: var(--space-sm) 0 0;
+  padding: var(--space-md);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Notify region — status and error messages
+   ------------------------------------------------------------------------- */
+#notify {
+  max-width: var(--container-max);
+  margin: var(--space-lg) auto 0;
+}
+
+/* Empty notify region takes no space */
+#notify:empty {
+  margin: 0;
+}
+
+#notify:not(:empty) {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  color: var(--color-notify-info-text);
+  background-color: var(--color-notify-info-bg);
+}
+
+/* Error variant — higher-visibility styling */
+#notify.notify-error {
+  color: var(--color-notify-error-text);
+  background-color: var(--color-notify-error-bg);
+  border: 1px solid var(--color-notify-error-border);
+}
+
+/* Responsive layout — two columns on wider screens
+   ------------------------------------------------------------------------- */
+@media (min-width: 720px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Timer spans the full width as a prominent focal card */
+  #timer {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+  }
+}

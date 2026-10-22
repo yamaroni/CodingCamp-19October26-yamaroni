@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List Life Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Greeting_Module: date, live clock, and time-of-day greeting -->
+  <header id="greeting">
+    <p id="greeting-date" class="greeting-date">&mdash;</p>
+    <p id="greeting-clock" class="greeting-clock">--:--:--</p>
+    <h1 id="greeting-message" class="greeting-message">Welcome</h1>
+  </header>
+
+  <main>
+    <!-- Focus_Timer: 25-minute countdown with controls and end indicator -->
+    <section id="timer" aria-labelledby="timer-heading">
+      <h2 id="timer-heading">Focus Timer</h2>
+      <p id="timer-display" class="timer-display">25:00</p>
+      <div class="timer-controls">
+        <button type="button" id="timer-start">Start</button>
+        <button type="button" id="timer-stop">Stop</button>
+        <button type="button" id="timer-reset">Reset</button>
+      </div>
+      <p id="timer-end" class="timer-end" hidden>Focus session ended</p>
+    </section>
+
+    <!-- Todo_List: add input, task list, and empty state -->
+    <section id="todo" aria-labelledby="todo-heading">
+      <h2 id="todo-heading">To-Do List</h2>
+      <form id="todo-form" class="todo-form">
+        <label for="todo-input" class="visually-hidden">New task</label>
+        <input type="text" id="todo-input" name="todo-input" placeholder="Add a new task" autocomplete="off">
+        <button type="submit" id="todo-add">Add</button>
+      </form>
+      <ul id="todo-list" class="todo-list"></ul>
+      <p id="todo-empty" class="empty-state">No tasks yet.</p>
+    </section>
+
+    <!-- Quick_Links: label + url inputs, add button, button list, empty state -->
+    <section id="links" aria-labelledby="links-heading">
+      <h2 id="links-heading">Quick Links</h2>
+      <form id="links-form" class="links-form">
+        <label for="links-label" class="visually-hidden">Link label</label>
+        <input type="text" id="links-label" name="links-label" placeholder="Label" autocomplete="off">
+        <label for="links-url" class="visually-hidden">Link URL</label>
+        <input type="text" id="links-url" name="links-url" placeholder="https://example.com" autocomplete="off">
+        <button type="submit" id="links-add">Add</button>
+      </form>
+      <ul id="links-list" class="links-list"></ul>
+      <p id="links-empty" class="empty-state">No quick links yet.</p>
+    </section>
+  </main>
+
+  <!-- Notify region: accessible status/error messages -->
+  <div id="notify" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
